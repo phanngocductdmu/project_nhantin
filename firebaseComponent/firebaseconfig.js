@@ -1,6 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-import * as firebase from 'firebase';
+import { firebase } from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA_udyZYvTt2SzOMHhRGIajjkTDyelLNwQ',
@@ -13,7 +12,9 @@ const firebaseConfig = {
   measurementId: 'G-NQ5CXXV1WP',
 };
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// Initialize Firebase
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-export default firebaseConfig;
+export { firebase, auth };

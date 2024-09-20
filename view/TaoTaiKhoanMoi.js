@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 function CustomCheckBox({ isChecked, onPress }) {
@@ -26,6 +27,32 @@ function CustomCheckBox({ isChecked, onPress }) {
 export default function TaoTaiKhoanMoi({ navigation }) {
   const [isTermsChecked, setIsTermsChecked] = useState(true);
   const [isPrivacyChecked, setIsPrivacyChecked] = useState(true);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [verificationId, setVerificationId] = useState(null);
+
+  // Gửi mã xác minh
+  const handleSendVerificationCode = async () => {
+    if (isTermsChecked && isPrivacyChecked) {
+      if (phoneNumber) {
+        try {
+          const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+          setVerificationId(confirmation.verificationId);
+          Alert.alert(
+            'Thông báo',
+            'Mã xác minh đã được gửi đến số điện thoại của bạn.',
+          );
+          navigation.navigate('NhapMaXacMinh', { verificationId });
+        } catch (error) {
+          Alert.alert('Lỗi', 'Gửi mã xác minh thất bại. Vui lòng thử lại.');
+          console.error(error);
+        }
+      } else {
+        Alert.alert('Lỗi', 'Vui lòng nhập số điện thoại hợp lệ.');
+      }
+    } else {
+      Alert.alert('Thông báo', 'Vui lòng đồng ý với tất cả các điều khoản.');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -47,8 +74,9 @@ export default function TaoTaiKhoanMoi({ navigation }) {
           style={styles.input}
           placeholder="Nhập số điện thoại"
           keyboardType="phone-pad"
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
         />
-
         <View style={styles.checkboxContainer}>
           <CustomCheckBox
             isChecked={isTermsChecked}
@@ -59,7 +87,6 @@ export default function TaoTaiKhoanMoi({ navigation }) {
             <Text style={styles.DKTest}>điều khoản Test</Text>
           </TouchableOpacity>
         </View>
-
         <View style={styles.checkboxContainer}>
           <CustomCheckBox
             isChecked={isPrivacyChecked}
@@ -70,16 +97,9 @@ export default function TaoTaiKhoanMoi({ navigation }) {
             <Text style={styles.DKMXH}>điều khoản mạng xã hội</Text>
           </TouchableOpacity>
         </View>
-
         <TouchableOpacity
           style={styles.button}
-          onPress={() => {
-            if (isTermsChecked && isPrivacyChecked) {
-              navigation.navigate('DangKy');
-            } else {
-              alert('Thông báo', 'Vui lòng đồng ý với tất cả các điều khoản.');
-            }
-          }}
+          onPress={handleSendVerificationCode}
         >
           <Text style={styles.buttonText}>Tiếp tục</Text>
         </TouchableOpacity>
@@ -87,7 +107,7 @@ export default function TaoTaiKhoanMoi({ navigation }) {
       <View style={styles.DNN}>
         <Text>Bạn đã có tài khoản? </Text>
         <TouchableOpacity>
-          <Text style={styles.tDangNhapNgay}>Đăng nhâp ngay</Text>
+          <Text style={styles.tDangNhapNgay}>Đăng nhập ngay</Text>
         </TouchableOpacity>
       </View>
     </View>
