@@ -15,14 +15,7 @@ export default function DanhSachHienThi({ item }) {
   }, [item.login.uuid]);
 
   return (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('NhanTin', {
-          id: item.login.uuid,
-          name: item.name.first + ' ' + item.name.last,
-        })
-      }
-    >
+    <TouchableOpacity onPress={() => navigation.navigate('NhanTin', { item })}>
       <View style={styles.view}>
         <Image style={styles.iAvt} source={{ uri: item.picture.medium }} />
         <View style={styles.vTen}>

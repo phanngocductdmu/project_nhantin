@@ -9,10 +9,12 @@ import {
   StatusBar,
   Keyboard,
   TouchableWithoutFeedback,
+  Switch,
 } from 'react-native';
 import GradientBackground from '../../../../contain/gradientBackground';
 
-export default function MenuCaNhanFriend({ navigation }) {
+export default function MenuCaNhanFriend({ route, navigation }) {
+  const { item } = route.params;
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -36,11 +38,64 @@ export default function MenuCaNhanFriend({ navigation }) {
               />
             </TouchableOpacity>
             <View style={styles.vTimKiem}>
-              <Text style={styles.tTimKiem}>Phan Ngọc Đức</Text>
+              <Text style={styles.tTimKiem}>
+                {item.name.first} {item.name.last}
+              </Text>
             </View>
           </View>
         </GradientBackground>
-        <View style={styles.contentContainer}></View>
+        <View style={styles.contentContainer}>
+          <TouchableOpacity
+            style={styles.vForm}
+            onPress={() =>
+              navigation.navigate('ThongTinCaNhanFriend', { item })
+            }
+          >
+            <Text style={styles.tForm}>Thông tin</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.vForm1}>
+            <Text style={styles.tForm}>Đổi tên gợi nhớ</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.vForm1}>
+            <Text style={styles.tForm}>Đánh dấu bạn thân</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.vForm1}>
+            <Text style={styles.tForm}>Giới thiệu cho bạn</Text>
+          </TouchableOpacity>
+          <View style={styles.vForm2}>
+            <View>
+              <Text style={styles.tForm1}>Thông báo</Text>
+
+              {/* <Switch /> */}
+            </View>
+            <TouchableOpacity>
+              <Text style={styles.tForm}>
+                Nhận thông báo hoạt động mới của người này
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.vForm2}>
+            <View>
+              <Text style={styles.tForm1}>Cài đặt riêng tư</Text>
+            </View>
+            <TouchableOpacity>
+              <Text style={styles.tForm}>Chặn xem nhật ký của tôi</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={styles.vForm1}>
+            <Text style={styles.tForm}>Ẩn nhật ký của người này</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.vForm2}>
+            <View>
+              <Text style={styles.tForm}>Báo xấu</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.vForm1}>
+            <View>
+              <Text style={[styles.tForm, { color: 'red' }]}>Xóa bạn</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -49,7 +104,7 @@ export default function MenuCaNhanFriend({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f3f4f6',
     color: '#fff',
   },
   gradientBackground: {
@@ -84,5 +139,31 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 8.3,
+  },
+  vForm: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+  },
+  tForm: {
+    fontSize: 16,
+  },
+  vForm1: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    marginTop: 1.5,
+  },
+  vForm2: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    marginTop: 8,
+  },
+  tForm1: {
+    fontSize: 16,
+    paddingBottom: 15,
+    color: '#1194ff',
+    fontWeight: 'bold',
   },
 });

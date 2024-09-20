@@ -15,7 +15,7 @@ import {
 import GradientBackground from '../../../contain/gradientBackground';
 
 export default function NhanTin({ navigation, route }) {
-  const { name } = route.params || { name: 'Unknown' };
+  const { item } = route.params;
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -34,17 +34,19 @@ export default function NhanTin({ navigation, route }) {
             >
               <Image
                 style={styles.iBack}
-                source={require('../../../image/back.png')}
+                source={require('../../../image/quaylai.png')}
                 resizeMode="contain"
               />
             </TouchableOpacity>
             <View style={styles.vName}>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('TuyChon');
+                  navigation.navigate('TuyChon', { item });
                 }}
               >
-                <Text style={styles.tName}>{name}</Text>
+                <Text style={styles.tName}>
+                  {item.name.first} {item.name.last}
+                </Text>
               </TouchableOpacity>
             </View>
             <TouchableOpacity style={{ paddingRight: 15 }}>
@@ -112,8 +114,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   iBack: {
-    width: 20,
-    height: 20,
+    width: 23,
+    height: 23,
   },
   vName: {
     flex: 1,

@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 import GradientBackground from '../../../contain/gradientBackground';
 
-export default function TuyChon({ navigation }) {
+export default function TuyChon({ route, navigation }) {
+  const { item } = route.params;
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -47,11 +48,13 @@ export default function TuyChon({ navigation }) {
               <View style={styles.vAVT}>
                 <Image
                   style={styles.iAVT}
-                  source={require('../../../image/android.jpg')}
+                  source={{ uri: item.picture.large }}
                 />
               </View>
               <View style={styles.vUsername}>
-                <Text style={styles.tUsername}>User name</Text>
+                <Text style={styles.tUsername}>
+                  {item.name.first} {item.name.last}
+                </Text>
               </View>
               <View style={styles.vTieuSu}>
                 <Text style={styles.tTieuSu}>Tiểu sử</Text>
@@ -70,7 +73,7 @@ export default function TuyChon({ navigation }) {
                 <TouchableOpacity
                   style={styles.vTuyChon}
                   onPress={() => {
-                    navigation.navigate('TrangCaNhanFriend');
+                    navigation.navigate('TrangCaNhanFriend', {item});
                   }}
                 >
                   <View style={styles.vChon}>
@@ -143,7 +146,9 @@ export default function TuyChon({ navigation }) {
                   style={styles.iCustomBody}
                   source={require('../../../image/taonhom.png')}
                 />
-                <Text style={styles.tCustomBody}>Tạo nhóm với User name</Text>
+                <Text style={styles.tCustomBody}>
+                  Tạo nhóm với {item.name.first} {item.name.last}
+                </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -154,7 +159,9 @@ export default function TuyChon({ navigation }) {
                   style={styles.iCustomBody}
                   source={require('../../../image/themvaonhom.png')}
                 />
-                <Text style={styles.tCustomBody}>Thêm User Name vào nhóm</Text>
+                <Text style={styles.tCustomBody}>
+                  Thêm {item.name.first} {item.name.last} vào nhóm
+                </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity

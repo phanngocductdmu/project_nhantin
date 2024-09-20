@@ -12,7 +12,8 @@ import {
 } from 'react-native';
 import GradientBackground from '../../../../contain/gradientBackground';
 
-export default function TrangCaNhan({ navigation }) {
+export default function TrangCaNhan({ route, navigation }) {
+  const { item } = route.params;
   return (
     <View style={styles.container}>
       <StatusBar
@@ -55,7 +56,7 @@ export default function TrangCaNhan({ navigation }) {
           <TouchableOpacity
             style={styles.vPlus}
             onPress={() => {
-              navigation.navigate('MenuCaNhanFriend');
+              navigation.navigate('MenuCaNhanFriend', { item });
             }}
           >
             <Image
@@ -65,16 +66,15 @@ export default function TrangCaNhan({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={styles.vAVT}>
-          <Image
-            style={styles.iAVT}
-            source={require('../../../../image/android.jpg')}
-          />
+          <Image style={styles.iAVT} source={{ uri: item.picture.large }} />
         </View>
       </View>
       <View style={styles.contentContainer}>
         <View style={{ flex: 1 }}>
           <View style={styles.vName}>
-            <Text style={styles.tName}>Phan Ngoc Duc </Text>
+            <Text style={styles.tName}>
+              {item.name.first} {item.name.last} {''}
+            </Text>
             <TouchableOpacity>
               <Image
                 style={styles.iSuaName}

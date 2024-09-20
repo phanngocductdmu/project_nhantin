@@ -14,7 +14,6 @@ import connect from '../../api/connect';
 
 export default function TinNhan({ navigation }) {
   const [outputs, setOutputs] = useState([]);
-
   useEffect(() => {
     connect
       .get('/?results=100&seed=fullstackio')

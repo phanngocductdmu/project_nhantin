@@ -11,6 +11,7 @@ import TimKiem from './index/TimKiem';
 import TuyChon from './index/ComponentTinNhan/TuyChon';
 import TrangCaNhanFriend from './index/ComponentTinNhan/TuyChon/TrangCaNhanFriend';
 import MenuCaNhanFriend from './index/ComponentTinNhan/TuyChon/MenuCaNhanFriend';
+import ThongTinCaNhanFriend from './index/ComponentTinNhan/TuyChon/ThongTinCaNhanFriend';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,10 @@ export default RootComponent = function () {
         <Stack.Screen name="TuyChon" component={TuyChon} />
         <Stack.Screen name="TrangCaNhanFriend" component={TrangCaNhanFriend} />
         <Stack.Screen name="MenuCaNhanFriend" component={MenuCaNhanFriend} />
+        <Stack.Screen
+          name="ThongTinCaNhanFriend"
+          component={ThongTinCaNhanFriend}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
